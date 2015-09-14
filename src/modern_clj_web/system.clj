@@ -6,10 +6,13 @@
             [meta-merge.core :refer [meta-merge]]
             [ring.component.jetty :refer [jetty-server]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
+            [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
             [modern-clj-web.endpoint.example :refer [example-endpoint]]))
 
 (def base-config
   {:app {:middleware [[wrap-not-found :not-found]
+                      [wrap-json-body {:keywords? true}]
+                      [wrap-json-response]
                       [wrap-defaults :defaults]]
          :not-found  "Resource Not Found"
          :defaults   (meta-merge api-defaults {})}})
