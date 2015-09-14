@@ -4,3 +4,5 @@
 config.edn
 .idea
 *.iml
+resources/public/js/
+*.log

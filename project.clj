@@ -14,7 +14,8 @@
                  [ring/ring-json "0.3.1"]
                  [cheshire "5.1.1"]]
   :plugins [[lein-environ "1.0.0"]
-            [lein-gen "0.2.2"]]
+            [lein-gen "0.2.2"]
+            [lein-figwheel "0.3.9"]]
   :generators [[duct/generators "0.3.0"]]
   :duct {:ns-prefix modern-clj-web}
   :main ^:skip-aot modern-clj-web.main
@@ -22,15 +23,23 @@
   :aliases {"gen"   ["generate"]
             "setup" ["do" ["generate" "locals"]]}
   :profiles
-  {:dev  [:project/dev  :profiles/dev]
-   :test [:project/test :profiles/test]
-   :uberjar {:aot :all}
-   :profiles/dev  {}
-   :profiles/test {}
-   :project/dev   {:source-paths ["dev"]
-                   :repl-options {:init-ns user}
-                   :dependencies [[reloaded.repl "0.1.0"]
-                                  [org.clojure/tools.namespace "0.2.11"]
-                                  [kerodon "0.6.1"]]
-                   :env {:port 3000}}
-   :project/test  {}})
+    {:dev  [:project/dev  :profiles/dev]
+     :test [:project/test :profiles/test]
+     :uberjar {:aot :all}
+     :profiles/dev  {}
+     :profiles/test {}
+     :project/dev   {:source-paths ["dev"]
+                     :repl-options {:init-ns user}
+                     :dependencies [[reloaded.repl "0.1.0"]
+                                    [org.clojure/tools.namespace "0.2.11"]
+                                    [kerodon "0.6.1"]]
+                     :env {:port 3000}}
+     :project/test  {}}
+  :cljsbuild
+    {:builds [{:id "dev"
+               :source-paths ["src-cljs"]
+               :figwheel true
+               :compiler {:main       "modern-clj-web.core"
+                          :asset-path "js/out"
+                          :output-to  "resources/public/js/modern-clj-web.js"
+                          :output-dir "resources/public/js/out"}}]})

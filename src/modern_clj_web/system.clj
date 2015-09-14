@@ -5,7 +5,7 @@
             [duct.middleware.not-found :refer [wrap-not-found]]
             [meta-merge.core :refer [meta-merge]]
             [ring.component.jetty :refer [jetty-server]]
-            [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
             [modern-clj-web.endpoint.example :refer [example-endpoint]]))
 
@@ -15,7 +15,7 @@
                       [wrap-json-response]
                       [wrap-defaults :defaults]]
          :not-found  "Resource Not Found"
-         :defaults   (meta-merge api-defaults {})}})
+         :defaults   (meta-merge site-defaults {})}})
 
 (defn new-system [config]
   (let [config (meta-merge base-config config)]
