@@ -7,7 +7,9 @@
             [ring.component.jetty :refer [jetty-server]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
-            [modern-clj-web.endpoint.example :refer [example-endpoint]]))
+            [modern-clj-web.endpoint.example :refer [example-endpoint]]
+            [modern-clj-web.component.repo :refer [new-contact-component]]
+            [system.components.mongo :refer [new-mongo-db]]))
 
 (def base-config
   {:app {:middleware [[wrap-not-found :not-found]
@@ -22,8 +24,11 @@
     (-> (component/system-map
          :app  (handler-component (:app config))
          :http (jetty-server (:http config))
-         :example (endpoint-component example-endpoint))
+         :example (endpoint-component example-endpoint)
+         :mongo (new-mongo-db (:mongo-uri config))
+         :repo (new-contact-component))
         (component/system-using
          {:http [:app]
           :app  [:example]
-          :example []}))))
+          :example [:repo]
+          :repo [:mongo]}))))
