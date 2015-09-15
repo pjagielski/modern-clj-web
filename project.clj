@@ -7,6 +7,8 @@
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  ;;  frontend
                  [cljs-http "0.1.37"]
+                 [org.omcljs/om "0.9.0"]
+                 [prismatic/om-tools "0.3.12"]
                  ;; backend
                  [com.stuartsierra/component "0.2.3"]
                  [compojure "1.4.0"]
