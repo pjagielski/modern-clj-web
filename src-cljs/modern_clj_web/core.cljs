@@ -10,15 +10,27 @@
 
 (println "hello from clojurescript")
 
-(go
-  (let [response (<! (http/get "/contacts"))]
-    (println (:body response))))
+(defn get-contacts []
+  (go
+    (let [response (<! (http/get "/contacts"))]
+      (:body response))))
 
 (def app-state (atom {:message "hello from om"}))
 
-(defcomponent app [data owner]
+(defcomponent contact-comp [contact _]
   (render [_]
-    (dom/div (:message data))))
+    (dom/li (str (:firstname contact) " " (:lastname contact)))))
+
+(defcomponent app [data _]
+  (will-mount [_]
+    (go
+      (let [contacts (<! (get-contacts))]
+        (om/update! data :contacts contacts))))
+  (render [_]
+    (dom/div
+      (dom/h2 (:message data))
+      (dom/ul
+        (om/build-all contact-comp (:contacts data))))))
 
 (om/root app app-state
          {:target (.getElementById js/document "main")})
