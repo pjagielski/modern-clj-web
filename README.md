@@ -1,21 +1,17 @@
 # modern-clj-web
 
-FIXME: description
+This project shows my opinionated way to develop Clojure web applications in late 2015.
+
+It embraces Clojure philosophy to compose small libraries over frameworks. 
+On the frontend it uses ClojureScript with [Om](https://github.com/omcljs/om) and [om-tools](https://github.com/Prismatic/om-tools) to reduce some verbosity. 
+The backend is a [Ring](https://github.com/ring-clojure/ring) web server which exposes REST backend with Mongo as repository, 
+all wired with [component](https://github.com/stuartsierra/component).  
+It was created from [duct](https://github.com/weavejester/duct) template and should follow [12-factor](http://12factor.net) philosophy, 
+but it's main focus is rather on interactive development with 
+[reloaded workflow](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded) 
+and [figwheel](https://github.com/bhauman/lein-figwheel).  
 
 ## Developing
-
-### Setup
-
-When you first clone this repository, run:
-
-```sh
-lein setup
-```
-
-This will create files for local configuration, and prep your system
-for the project.
-
-### Environment
 
 To begin developing, start with a REPL.
 
@@ -41,19 +37,14 @@ user=> (reset)
 :started
 ```
 
-### Generators
+To develop frontend, start `fighweel` on another terminal.
+ 
+```sh
+lein figwheel
+```
 
-This project has several [generators][] to help you create files.
-
-* `lein gen endpoint <name>` to create a new endpoint
-* `lein gen component <name>` to create a new component
-
-[generators]: https://github.com/weavejester/lein-generate
-
-## Deploying
-
-FIXME: steps to deploy
+When you open main page in the browser `fighweel` should establish websocket connection and reload any changes in ClojureScript files.  
 
 ## Legal
 
-Copyright © 2015 FIXME
+Copyright © 2015 Piotr Jagielski
