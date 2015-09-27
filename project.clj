@@ -9,6 +9,8 @@
                  [cljs-http "0.1.37"]
                  [org.omcljs/om "0.9.0"]
                  [prismatic/om-tools "0.3.12"]
+                 [racehub/om-bootstrap "0.5.0"]
+                 [jkkramer/verily "0.6.0"]
                  ;; backend
                  [com.stuartsierra/component "0.2.3"]
                  [compojure "1.4.0"]
