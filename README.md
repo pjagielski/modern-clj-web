@@ -2,13 +2,13 @@
 
 This project shows my opinionated way to develop Clojure web applications in late 2015.
 
-It embraces Clojure philosophy to compose small libraries over frameworks. 
-On the frontend it uses ClojureScript with [Om](https://github.com/omcljs/om) and [om-tools](https://github.com/Prismatic/om-tools) to reduce some verbosity. 
-The backend is a [Ring](https://github.com/ring-clojure/ring) web server which exposes REST backend with Mongo as repository, 
+It embraces Clojure philosophy to compose small libraries over frameworks.
+On the frontend it uses ClojureScript with [Om](https://github.com/omcljs/om) and [om-tools](https://github.com/Prismatic/om-tools) to reduce some verbosity.
+The backend is a [Ring](https://github.com/ring-clojure/ring) web server which exposes REST backend with Mongo as repository,
 all wired with [component](https://github.com/stuartsierra/component).  
-It was created from [duct](https://github.com/weavejester/duct) template and should follow [12-factor](http://12factor.net) philosophy, 
-but it's main focus is rather on interactive development with 
-[reloaded workflow](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded) 
+It was created from [duct](https://github.com/weavejester/duct) template and should follow [12-factor](http://12factor.net) philosophy,
+but it's main focus is rather on interactive development with
+[reloaded workflow](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded)
 and [figwheel](https://github.com/bhauman/lein-figwheel).  
 
 ## Developing
@@ -37,8 +37,14 @@ user=> (reset)
 :started
 ```
 
+If you want to reload your server periodically you can put (reset) in while loop:
+
+```clojure
+user=> (while true (do (Thread/sleep 1000)(reset)))
+```
+
 To develop frontend, start `fighweel` on another terminal.
- 
+
 ```sh
 lein figwheel
 ```
