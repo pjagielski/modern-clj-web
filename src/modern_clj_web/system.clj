@@ -8,15 +8,16 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
             [modern-clj-web.endpoint.example :refer [example-endpoint]]
-            [modern-clj-web.component.repo :refer [new-contact-repo-component]]
+            [modern-clj-web.component.repo]
             [system.components.mongo :refer [new-mongo-db]]))
 
 (def base-config
   {:app {:middleware [[wrap-not-found :not-found]
-                      [wrap-json-body {:keywords? true}]
+                      [wrap-json-body :json]
                       [wrap-json-response]
                       [wrap-defaults :defaults]]
          :not-found  "Resource Not Found"
+         :json       {:keywords? true}
          :defaults   (meta-merge site-defaults {})}})
 
 (defn new-system [config]
@@ -25,10 +26,8 @@
          :app  (handler-component (:app config))
          :http (jetty-server (:http config))
          :example (endpoint-component example-endpoint)
-         :mongo (new-mongo-db (:mongo-uri config))
-         :contact-repo (new-contact-repo-component))
+         :mongo (new-mongo-db (:mongo-uri config)))
         (component/system-using
          {:http [:app]
           :app  [:example]
-          :example [:contact-repo]
-          :contact-repo [:mongo]}))))
+          :example [:mongo]}))))

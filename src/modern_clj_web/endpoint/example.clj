@@ -4,7 +4,7 @@
             [ring.util.response :refer [response]]
             [modern-clj-web.component.repo :as r]))
 
-(defn example-endpoint [{repo :contact-repo}]
+(defn example-endpoint [{repo :mongo}]
   (routes
     (GET "/contacts" []
       (response (r/find-all repo)))

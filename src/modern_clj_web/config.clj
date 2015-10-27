@@ -2,8 +2,8 @@
   (:require [environ.core :refer [env]]))
 
 (def defaults
-  ^:displace {:http {:port 3000}})
+  {:http {:port 3000}
+   :mongo-uri "mongodb://localhost:27017/contacts"})
 
 (def environ
-  {:http {:port (some-> env :port Integer.)}
-   :mongo-uri "mongodb://localhost:27017/contacts"})
+  {:http {:port (some-> env :port Integer.)}})

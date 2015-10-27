@@ -1,14 +1,13 @@
 (ns modern-clj-web.component.repo
   (:require [monger.collection :as mc]
-            [monger.json]))
+            [monger.json]
+            [system.components.mongo])
+  (:import (system.components.mongo Mongo)))
 
 (defprotocol ContactRepository
   (find-all [this]))
 
-(defrecord ContactRepoComponent [mongo]
+(extend-type Mongo
   ContactRepository
   (find-all [this]
-    (mc/find-maps (:db mongo) "contacts")))
-
-(defn new-contact-repo-component []
-  (->ContactRepoComponent {}))
+    (mc/find-maps (:db this) "contacts")))
