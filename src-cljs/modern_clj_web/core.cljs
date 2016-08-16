@@ -30,7 +30,7 @@
 
 (defn get-contacts []
   (go
-    (let [response (<! (http/get "/contacts"))]
+    (let [response (<! (http/get "/api/contacts"))]
       (:body response))))
 
 (def app-state (atom {:message "hello from om"}))

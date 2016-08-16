@@ -5,20 +5,17 @@
             [duct.middleware.not-found :refer [wrap-not-found]]
             [meta-merge.core :refer [meta-merge]]
             [ring.component.jetty :refer [jetty-server]]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
+            [ring.middleware.defaults :refer [wrap-defaults api-defaults]]
             [modern-clj-web.endpoint.example :refer [example-endpoint]]
             [modern-clj-web.component.repo]
             [system.components.mongo :refer [new-mongo-db]]))
 
 (def base-config
   {:app {:middleware [[wrap-not-found :not-found]
-                      [wrap-json-body :json]
-                      [wrap-json-response]
                       [wrap-defaults :defaults]]
          :not-found  "Resource Not Found"
          :json       {:keywords? true}
-         :defaults   (meta-merge site-defaults {})}})
+         :defaults   (meta-merge api-defaults {:static {:resources "public"}})}})
 
 (defn new-system [config]
   (let [config (meta-merge base-config config)]

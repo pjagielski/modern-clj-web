@@ -1,4 +1,3 @@
 ;; Local profile overrides
-
-{:profiles/dev  {:env {}}
+{:profiles/dev  {}
  :profiles/test {}}
